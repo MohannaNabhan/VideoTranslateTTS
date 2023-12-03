@@ -4,17 +4,10 @@ import subprocess
 from gtts import gTTS
 import pysrt
 from datetime import datetime, time
+from pydub import AudioSegment
 
 input_video_name = "video"
 input_extension_video = ".mp4"
-input_idioma_translate = "es"
-
-
-def build_voice(input_text,input_name_voice):
-  text = gTTS(text = input_text, lang = 'es')
-  text.save(f'voice/{input_name_voice}.mp3')
-
-
 
 def download_yt_video(input_video, input_extension_video, input_link_video_youtube):
     yt = YouTube(input_link_video_youtube)
@@ -22,30 +15,48 @@ def download_yt_video(input_video, input_extension_video, input_link_video_youtu
     video_stream.download(filename=f'{input_video}{input_extension_video}')
     print("Video downloaded.")
 
-def add_sub(input_video_name, input_extension_video, input_idioma_translate):
-    result2 = subprocess.run(['ffmpeg', '-i', f'{input_video_name}.{input_idioma_translate}.srt', f'{input_video_name}.ass'])
-
-    if result2.returncode == 0:
-        print("Process completed successfully.")
-    else:
-        print("An error occurred during the process.")
-
-    command = ['ffmpeg', '-i', f'{input_video_name}{input_extension_video}', '-vf', f'ass={input_video_name}.ass', '-c:a', 'copy', 'output_sub.mp4', '-y']
-    result3 = subprocess.run(command)
-
-    if result3.returncode == 0:
-        print("Process completed successfully.")
-    else:
-        print("An error occurred during the process.")
-
-
 if not os.path.exists('voice'):
     os.makedirs('voice')
     print('The folder "voice" has been created.')
 else:
     print('The folder "voice" already exists.')
 
+def build_voice(input_text,input_name_voice):
+  text = gTTS(text = input_text, lang = 'es')
+  text.save(f'voice/{input_name_voice}.mp3')
 
+import re
+from googletrans import Translator
+
+def translate_srt(input_file, output_file, target_language='en'):
+    # Inicializar el traductor de Google
+    translator = Translator()
+
+    # Leer el archivo SRT
+    with open(input_file, 'r', encoding='utf-8') as file:
+        srt_content = file.read()
+
+    # Dividir el archivo SRT en subtítulos
+    subtitles = re.split(r'\n\n', srt_content)
+
+    # Traducir cada subtítulo
+    translated_subtitles = []
+    for subtitle in subtitles:
+        lines = subtitle.split('\n')
+        if len(lines) >= 3:  # Asegurarse de que haya al menos 3 líneas (número, tiempo, texto)
+            subtitle_text = ' '.join(lines[2:])  # Tomar solo las líneas de texto
+            translation = translator.translate(subtitle_text, dest=target_language).text
+            translated_subtitle = f"{lines[0]}\n{lines[1]}\n{translation}\n"
+            translated_subtitles.append(translated_subtitle)
+
+    # Unir los subtítulos traducidos
+    translated_srt_content = '\n\n'.join(translated_subtitles)
+
+    # Escribir los subtítulos traducidos en un nuevo archivo
+    with open(output_file, 'w', encoding='utf-8') as file:
+        file.write(translated_srt_content)
+
+# Ejemplo de uso
 
 def convert_to_milliseconds(time_obj):
     if isinstance(time_obj, time):
@@ -70,7 +81,7 @@ def convert_to_milliseconds(time_obj):
 
 instructions = []
 
-def read_srt(srt_path):
+def main(srt_path):
     subs = pysrt.open(srt_path)
     for sub in subs:
         line_number = sub.index
@@ -80,8 +91,6 @@ def read_srt(srt_path):
 
         build_voice(f'{sub.text}',f'{line_number}')
         instructions.append({"insert_audio_path": f"voice/{line_number}.mp3", "start_time_ms": convert_to_milliseconds(start_time), "end_time_ms": convert_to_milliseconds(end_time)})
-
-from pydub import AudioSegment
 
 def apply_instructions(main_audio_path, instructions, output_path):
     # Load the main audio
@@ -105,22 +114,12 @@ def apply_instructions(main_audio_path, instructions, output_path):
     # Save the result in mp3 format
     main_audio.export(output_path, format="mp3")
 
-
-
-
-
-download_yt_video(input_video_name,input_extension_video,'https://www.youtube.com/watch?v=8MCT-3HCFb0&ab_channel=R%C3%B8zco')
+download_yt_video(input_video_name,input_extension_video,'https://www.youtube.com/watch?v=-_UedgKyL1o&ab_channel=Nickelodeon')
 subprocess.run(f'whisper --model large-v3 video.mp4', shell=True)
-#add_sub(input_video_name,input_extension_video,input_idioma_translate)  # add subtitle
 subprocess.run(f'ffmpeg -i {input_video_name}{input_extension_video} -vn -acodec copy output_audio_.aac -y', shell=True)
 subprocess.run(f'ffmpeg -i output_audio_.aac -filter:a "volume=0.5" -c:a aac -strict experimental output_audio.aac -y', shell=True)
 instructions = []
-subprocess.run(f'whisper --model large-v3 video.mp4', shell=True)
-!ffs video.mp4 -i video.srt -o synchronized.srt
-read_srt(f'synchronized.srt')
-#read_srt(f'{input_video_name}.srt')
+translate_srt('video.srt', 'output.srt', target_language='es')
+main(f'output.srt')
 apply_instructions("output_audio.aac", instructions, "output_audio_translate.mp3")
-!ffmpeg -i video.mp4 -i output_audio_translate.mp3 -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 salida.mp4 -y
-
-
-
+subprocess.run(f'ffmpeg -i video.mp4 -i output_audio_translate.mp3 -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 salida.mp4 -y', shell=True)
