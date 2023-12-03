@@ -1,22 +1,22 @@
-**Nombre del Proyecto: VideoTranslateTTS**
+**Project Name: VideoTranslateTTS**
 
-## Descripción
+## Description
 
-Este proyecto VideoTranslateTTS se centra en traducir el audio y añadirle voces traducidas al idioma que desees. La implementación y el análisis se han realizado en un entorno de Colab, y el cuaderno Colab correspondiente está disponible [aquí](https://colab.research.google.com/drive/1J70mZEYA7Xx7T7ZbZt-m12plShCIHx5q?usp=sharing).
+This VideoTranslateTTS project focuses on translating audio and adding translated voices in the language of your choice. The implementation and analysis have been carried out in a Colab environment, and the corresponding Colab notebook is available [here](https://colab.research.google.com/drive/1J70mZEYA7Xx7T7ZbZt-m12plShCIHx5q?usp=sharing).
 
-## Instrucciones de Uso
+## Usage Instructions
 
-Para utilizar este proyecto, sigue estos pasos:
+To use this project, follow these steps:
 
-1. Abre el enlace de Colab proporcionado o ejecutelo en su eterno de python.
-2. Instale la despendecias correspondiente.
-3. Luego en la linea 117 modifique la funcion y ingrese el link del video youtube
-4. Luego en la linea 122 ingrese el idioma que desee las voces
-5. Ejecute el programa
+1. Open the provided Colab link or run it in your Python environment.
+2. Install the corresponding dependencies.
+3. Then, on line 117, modify the function and enter the link to the YouTube video.
+4. Next, on line 122, enter the language for the voices.
+5. Execute the program.
 
-## Dependencias
+## Dependencies
 
-Este proyecto utiliza las siguientes dependencias principales:
+This project uses the following main dependencies:
 
 - googletrans==4.0.0-rc1
 - sudo apt update && sudo apt install ffmpeg
@@ -27,29 +27,24 @@ Este proyecto utiliza las siguientes dependencias principales:
 - pip install ffsubsync
 - pip install pysrt
 
-Para instalar las dependencias, puedes utilizar el siguiente comando:
+To install the dependencies, you can use the following command:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Aviso de Créditos
+## Credit Notice
 
-Si decides utilizar este proyecto o parte de él en tus propios trabajos, por favor, asegúrate de proporcionar los créditos correspondientes al autor original. Incluye la siguiente información en tu proyecto, documento o cualquier medio que utilices para compartir:
+If you decide to use this project or part of it in your own work, please ensure to provide proper credit to the original author. Include the following information in your project, document, or any medium you use to share:
 
-"Este trabajo utiliza VideoTranslateTTS, desarrollado por Mohanna Nabhan. Puedes encontrar el proyecto original [aquí](https://colab.research.google.com/drive/1J70mZEYA7Xx7T7ZbZt-m12plShCIHx5q?usp=sharing)."
+"This work uses VideoTranslateTTS, developed by Mohanna Nabhan. You can find the original project [here](https://colab.research.google.com/drive/1J70mZEYA7Xx7T7ZbZt-m12plShCIHx5q?usp=sharing)."
 
-## Contacto
+## Contact
 
-Si tienes preguntas, sugerencias o comentarios, no dudes en ponerte en contacto conmigo:
+If you have questions, suggestions, or comments, feel free to contact me:
 
 - Mohanna Nabhan Algueira
 - Mohanna.nabhant@gmail.com
 - https://youtube.com/@MohannaNabhan.
 
-¡Gracias por utilizar VideoTranslateTTS!
-
-
-
-
-
+Thank you for using VideoTranslateTTS!
