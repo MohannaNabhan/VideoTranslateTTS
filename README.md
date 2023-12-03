@@ -25,7 +25,7 @@ To use this project, follow these steps:
 
 This project uses the following main dependencies:
 
-- googletrans==4.0.0-rc1
+- pip install googletrans==4.0.0-rc1
 - sudo apt update && sudo apt install ffmpeg
 - pip install pytube
 - pip install -U openai-whisper
