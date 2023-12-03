@@ -1,5 +1,12 @@
 **Project Name: VideoTranslateTTS**
 
+
+
+
+## Example of VideoTranslateTTS
+
+https://drive.google.com/file/d/1q0M4ReuPPuUCx5KkiLIVyp6spzWl65Zc/view?usp=sharing
+
 ## Description
 
 This VideoTranslateTTS project focuses on translating audio and adding translated voices in the language of your choice. The implementation and analysis have been carried out in a Colab environment, and the corresponding Colab notebook is available [here](https://colab.research.google.com/drive/1J70mZEYA7Xx7T7ZbZt-m12plShCIHx5q?usp=sharing).
