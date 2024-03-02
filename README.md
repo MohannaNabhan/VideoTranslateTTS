@@ -45,6 +45,5 @@ If you have questions, suggestions, or comments, feel free to contact me:
 
 - Mohanna Nabhan Algueira
 - Mohanna.nabhant@gmail.com
-- https://youtube.com/@MohannaNabhan.
 
 Thank you for using VideoTranslateTTS!
