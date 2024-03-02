@@ -2,7 +2,6 @@
 
 
 
-
 ## Example of VideoTranslateTTS
 
 https://drive.google.com/file/d/1q0M4ReuPPuUCx5KkiLIVyp6spzWl65Zc/view?usp=sharing
@@ -39,12 +38,6 @@ To install the dependencies, you can use the following command:
 ```bash
 pip install -r requirements.txt
 ```
-
-## Credit Notice
-
-If you decide to use this project or part of it in your own work, please ensure to provide proper credit to the original author. Include the following information in your project, document, or any medium you use to share:
-
-"This work uses VideoTranslateTTS, developed by Mohanna Nabhan. You can find the original project [here](https://colab.research.google.com/drive/1J70mZEYA7Xx7T7ZbZt-m12plShCIHx5q?usp=sharing)."
 
 ## Contact
 
